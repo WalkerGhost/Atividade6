@@ -1,21 +1,9 @@
 <?php
-$host = "SEU_HOST";
-$banco = "SEU_BANCO";
-$usuario = "SEU_USUARIO";
-$senha = "SUA_SENHA";
-
-try {
-    $pdo = new PDO(
-        "mysql:host=$host;dbname=$banco;charset=utf8mb4",
-        $usuario,
-        $senha
-    );
-
-    $pdo->setAttribute(
-        PDO::ATTR_ERRMODE,
-        PDO::ERRMODE_EXCEPTION
-    );
-
-} catch (PDOException $e) {
-    die("Erro na conexão com o banco de dados.");
+include "conecta.php";
+$sql = "SELECT * FROM aluno";
+$stmt = $conexao->prepare($sql);
+$stmt->execute();
+while ($linha = $stmt->fetch()) {
+    echo "<p><b>Nome: </b>" . $linha['nome'] . " <b>Senha: </b>" . $linha['senha'] . "</p>";
 }
+?>
