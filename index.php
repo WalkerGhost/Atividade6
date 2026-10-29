@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Seja Bem Vindo ^^</title>
+  <title>Seja Bem Vindo </title>
 </head>
 <body>
     <?php echo "<h1>Olá, mundo!</h1>" ?>
