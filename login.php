@@ -24,9 +24,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($linha = $resultado->fetch_assoc()) {
 
         echo "<h2>Login bem-sucedido!</h2>";
+
         echo "<p>Bem-vindo, "
             . htmlspecialchars($linha['nome'])
             . "!</p>";
+
+        echo '<a href="lista.php">Visualizar lista de alunos</a>';
 
     } else {
 
