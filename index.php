@@ -6,7 +6,7 @@
 </head>
 <body>
 <form method="post" action="login.php">
-<labe1>CPF</1abe1>
+<labe1>CPF<
 <input type="text" name="cpf"><br>
 <labe1>Senha :
 <input type="password" name="senha"><br>
