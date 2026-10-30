@@ -1,15 +1,12 @@
-```php
+
 <?php
 
-// Conectar ao banco de dados
 require_once(__DIR__ . "/conecta.php");
 
-// Buscar todos os alunos
 $sql = "SELECT * FROM aluno";
 
 $resultado = $conexao->query($sql);
 
-// Verificar erros
 if (!$resultado) {
     die("Erro ao consultar alunos: " . $conexao->error);
 }
@@ -26,7 +23,6 @@ if (!$resultado) {
     <title>Lista de Alunos</title>
 
     <style>
-
         body {
             font-family: Arial, sans-serif;
             background: #f2f4f8;
@@ -68,22 +64,6 @@ if (!$resultado) {
         tr:hover {
             background: #f1f5fa;
         }
-
-        .mensagem {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .voltar {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            background: #263b5e;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
-
     </style>
 
 </head>
@@ -111,9 +91,7 @@ if (!$resultado) {
             echo "<tr>";
 
             echo "<td>" . htmlspecialchars($linha['id']) . "</td>";
-
             echo "<td>" . htmlspecialchars($linha['nome']) . "</td>";
-
             echo "<td>" . htmlspecialchars($linha['cpf']) . "</td>";
 
             echo "</tr>";
@@ -124,9 +102,7 @@ if (!$resultado) {
 
     } else {
 
-        echo "<div class='mensagem'>";
-        echo "Nenhum aluno cadastrado no banco de dados.";
-        echo "</div>";
+        echo "<p>Nenhum aluno cadastrado.</p>";
 
     }
 
@@ -134,10 +110,11 @@ if (!$resultado) {
 
     ?>
 
-    <a href="index.php" class="voltar">Voltar ao login</a>
+    <br><br>
+
+    <a href="index.php">Voltar ao login</a>
 
 </div>
 
 </body>
 </html>
-```
