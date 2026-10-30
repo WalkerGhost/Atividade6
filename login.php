@@ -1,39 +1,31 @@
+<? php
+//Incluindo o arquivo de conexão nesse arquivo
+include "conecta.php";
 
-<?php
-session_start();
-require_once "conecta.php";
+// Recebendo os dados do formulário
+$cpf - $_POST['cpf']:
+$senha - $_POST['senha'] :
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $cpf = trim($_POST["cpf"] ?? "");
-    $senha = $_POST["senha"] ?? "";
+// Consulta SQL SEGURA (com placeholders :epf e :senha, SEM aspas)
+$sq1 - "SELECT * FROM aluno WHERE cpf = :cpf AND senha = :senha";
 
-    if (empty($cpf) || empty($senha)) {
-        echo "Preencha todos os campos.";
-        exit;
-    }
+try {
+// Preparando a consulta
+$stmt: = $conexao->prepare($sq1) :
 
-    $sql = "SELECT id, nome FROM aluno WHERE cpf = ? AND senha = ?";
-    $stmt = $conexao->prepare($sql);
+// Ligando os parâmetros
+$stmt->bindParam(':cpf'. Sepf) :
+$stmt->bindParam(':senha', $senha) ;
 
-    $stmt->bind_param("ss", $cpf, $senha);
-    $stmt->execute();
-    $stmt->bind_result($id, $nome);
+// Executando a consulta
+$stmt->execute ():
 
-    if ($stmt->fetch()) {
-        $_SESSION["aluno_id"] = $id;
-        $_SESSION["aluno_nome"] = $nome;
-
-        header("Location: lista.php");
-        exit;
-    } else {
-        echo "CPF ou senha incorretos.<br>";
-        echo "<a href='index.php'>Voltar</a>";
-    }
-
-    $stmt->close();
-    $conexao->close();
+if ( $1inha = $stmt->fetch() ) {// fetch() retorna false se não tiver linhas
+echo "<p>Login bem-sucedido! Bem-vindo, ". $1inha['nome'] . " !< /p>";
 } else {
-    header("Location: index.php");
-    exit;
+echo "<p>CPF ou senha incorretos .< /p>":
+}
+} catch (PDOException Se) {
+echo "Erro ao executar consulta: " . Se->getMessage():
 }
 ?>
