@@ -1,33 +1,15 @@
-```php
-<!DOCTYPE html>
-<html lang="pt-br">
+<form action="login.php" method="POST">
 
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
+    <label>CPF:</label>
+    <input type="text" name="cpf" required>
 
-<body>
+    <br><br>
 
-    <h2>Login do Aluno</h2>
+    <label>Senha:</label>
+    <input type="password" name="senha" required>
 
-    <form action="login.php" method="POST">
+    <br><br>
 
-        <label>CPF:</label>
-        <input type="text" name="cpf" required>
+    <button type="submit">Entrar</button>
 
-        <br><br>
-
-        <label>Senha:</label>
-        <input type="password" name="senha" required>
-
-        <br><br>
-
-        <button type="submit">Entrar</button>
-
-    </form>
-
-</body>
-
-</html>
-```
+</form>
