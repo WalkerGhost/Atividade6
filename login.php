@@ -1,31 +1,51 @@
-<? php
-//Incluindo o arquivo de conexão nesse arquivo
+
+<?php
+
+// Incluindo a conexão
 include "conecta.php";
 
-// Recebendo os dados do formulário
-$cpf - $_POST['cpf']:
-$senha - $_POST['senha'] :
+// Verificando se os dados foram enviados
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-// Consulta SQL SEGURA (com placeholders :epf e :senha, SEM aspas)
-$sq1 - "SELECT * FROM aluno WHERE cpf = :cpf AND senha = :senha";
+    // Recebendo os dados do formulário
+    $cpf = $_POST['cpf'];
+    $senha = $_POST['senha'];
 
-try {
-// Preparando a consulta
-$stmt: = $conexao->prepare($sq1) :
+    // Consulta SQL
+    $sql = "SELECT * FROM aluno WHERE cpf = ? AND senha = ?";
 
-// Ligando os parâmetros
-$stmt->bindParam(':cpf'. Sepf) :
-$stmt->bindParam(':senha', $senha) ;
+    // Preparando a consulta
+    $stmt = $conexao->prepare($sql);
 
-// Executando a consulta
-$stmt->execute ():
+    if (!$stmt) {
+        die("Erro na consulta: " . $conexao->error);
+    }
 
-if ( $1inha = $stmt->fetch() ) {// fetch() retorna false se não tiver linhas
-echo "<p>Login bem-sucedido! Bem-vindo, ". $1inha['nome'] . " !< /p>";
-} else {
-echo "<p>CPF ou senha incorretos .< /p>":
+    // Ligando os parâmetros
+    $stmt->bind_param("ss", $cpf, $senha);
+
+    // Executando
+    $stmt->execute();
+
+    // Obtendo o resultado
+    $resultado = $stmt->get_result();
+
+    // Verificando se encontrou o aluno
+    if ($linha = $resultado->fetch_assoc()) {
+
+        echo "<h2>Login bem-sucedido!</h2>";
+        echo "<p>Bem-vindo, " . htmlspecialchars($linha['nome']) . "!</p>";
+
+    } else {
+
+        echo "<p>CPF ou senha incorretos.</p>";
+
+    }
+
+    $stmt->close();
+    $conexao->close();
+
 }
-} catch (PDOException Se) {
-echo "Erro ao executar consulta: " . Se->getMessage():
-}
+
 ?>
+```
