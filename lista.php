@@ -1,18 +1,17 @@
-
+```php
 <?php
 
-// Incluindo o arquivo de conexão
+// Conectar ao banco de dados
 require_once(__DIR__ . "/conecta.php");
 
-// Consulta SQL para buscar os alunos
+// Buscar todos os alunos
 $sql = "SELECT * FROM aluno";
 
-// Executando a consulta
 $resultado = $conexao->query($sql);
 
-// Verificando se houve erro
+// Verificar erros
 if (!$resultado) {
-    die("Erro na consulta: " . $conexao->error);
+    die("Erro ao consultar alunos: " . $conexao->error);
 }
 
 ?>
@@ -22,19 +21,84 @@ if (!$resultado) {
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Lista de Alunos</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f4f8;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #263b5e;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+        }
+
+        th {
+            background: #263b5e;
+            color: white;
+            padding: 12px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background: #f1f5fa;
+        }
+
+        .mensagem {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .voltar {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background: #263b5e;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+    </style>
+
 </head>
 
 <body>
+
+<div class="container">
 
     <h1>Alunos cadastrados</h1>
 
     <?php
 
-    // Verificando se existem alunos cadastrados
     if ($resultado->num_rows > 0) {
 
-        echo "<table border='1' cellpadding='10'>";
+        echo "<table>";
 
         echo "<tr>";
         echo "<th>ID</th>";
@@ -42,7 +106,6 @@ if (!$resultado) {
         echo "<th>CPF</th>";
         echo "</tr>";
 
-        // Percorrendo os registros
         while ($linha = $resultado->fetch_assoc()) {
 
             echo "<tr>";
@@ -61,14 +124,20 @@ if (!$resultado) {
 
     } else {
 
-        echo "<p>Nenhum aluno cadastrado.</p>";
+        echo "<div class='mensagem'>";
+        echo "Nenhum aluno cadastrado no banco de dados.";
+        echo "</div>";
 
     }
 
-    // Fechando a conexão
     $conexao->close();
 
     ?>
 
+    <a href="index.php" class="voltar">Voltar ao login</a>
+
+</div>
+
 </body>
 </html>
+```
